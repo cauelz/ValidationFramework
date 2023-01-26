@@ -1,5 +1,5 @@
 public interface RecordValidation {
 
-    void validate(List<SObject> records);
+    void validate(Map<Id, SObject> records, Map<Id, SObject> oldRecords);
 
 }

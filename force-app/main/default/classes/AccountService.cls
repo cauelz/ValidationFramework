@@ -1,26 +1,23 @@
-public with sharing class AccountService implements Validation {
+public with sharing class AccountService {
 
-    AccountActiveValidation activeValidation;
-    List<Validation> validations = new List<Validations>();
-    Account newAccounts;
+    List<RecordValidation> validations = new List<RecordValidation>();
+    private Map<Id, Account> accounts;
+    private Map<Id, Account> oldAccounts;
 
-    public AccountService(this.newAccounts) {
-        this.newAccounts = newAccounts;
-        this.init();
-    }
-
-    void init() {
+    public AccountService(Map<Id,Account> accounts, Map<Id, Account> oldAccounts) {
+        this.accounts = accounts;
+        this.oldAccounts = oldAccounts;
         this.createValidations();
     }
 
-    void validate() {
+    void executeValidations() {
         for (RecordValidation validation : validations) {
-            validation.validate();
+            validation.validate( this.accounts, this.oldAccounts);
         }
     }
 
     void createValidations() {
-        validations.add(new AccountActiveValidation(this.newAccounts));
+        this.validations.add(new AccountActiveValidation());
     }
 
 }
