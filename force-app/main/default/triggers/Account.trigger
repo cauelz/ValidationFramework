@@ -1,3 +1,3 @@
 trigger Account on Account (before insert, before update) {
-    new AccountTH.run();
+    new AccountTH().run();
 }
